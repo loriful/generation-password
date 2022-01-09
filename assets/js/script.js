@@ -6,10 +6,11 @@ var pwLength = function() {
 
   // prime loop entry
   var len = "";
+  
+  // get password length, check for integer, iterate until valid input
+  while (Number.isNaN(len - parseInt(len)) || len < 8 || len > 128) {
 
-  while (!Number.isInteger(parseInt(len))  || len < 8 || len > 128) {
- 
-    // prompt user for pw length between 8 and 128, repeat until valid input received
+    // prompt user for pw length between 8 and 128, bash away until valid input received
     len = window.prompt("Welcome to the Password Generator. Please provide password character length as a whole number between 8 and 128.");  
 
   } // end while
@@ -18,7 +19,7 @@ var pwLength = function() {
   if (window.confirm("Your password will be " + len + " characters long. Please confirm.")) {
   }
   else {
-    // repeat until valid number recevied
+    // repeat until valid number recieved
     pwLength();
   }
   // password length input gathered and validated 
@@ -77,8 +78,10 @@ var generatePassword = function() {
   }
   if (pwRulesObj.sym) {
     charArray.push('!','@','#','$','%','&','*','+');
+    // at least one selection made
     charOptions += 1;
   }
+  // No selections made, force entry
   if (charOptions === 0) {
     window.alert("You have not selected a character type.  All lower case has been selected for you.");
     var charArray = ['a','b','c','d','e','f','g','h','i','j','k','l','m','p','q','r','s','t','u','v','w','x','y','z'];
