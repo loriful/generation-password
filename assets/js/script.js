@@ -18,6 +18,7 @@ var pwLength = function() {
   if (window.confirm("Your password will be " + len + " characters long. Please confirm.")) {
   }
   else {
+    // repeat until valid number recevied
     pwLength();
   }
   // password length input gathered and validated 
@@ -33,32 +34,9 @@ var getCharType = function(charType) {
   return getType;
 }; // end getCharType
 
-// randomly choose which character type to add to password array
-// var charList = function(typeOption) {
-  
-//   switch(typeOption) {
-//     case 1:
-//       return getUpper();
-//       break;
-//     case 2:
-//       return getLower();
-//       break;
-//     case 3: 
-//       return randomNumber(0,9);
-//       break;
-//     case 4:
-//       return getSym();
-//       break;
-//     default:
-//       break;
-//   } // switch
-    
-// }; // end function charList 
-
-// function to create password based in user criteria
+// generate random numbers
 var randomNumber = function(min, max) {
   var value = Math.floor(Math.random() * (max - min) + min);
-  console.log(value + "randomnumber");
 
   return value;
 }; // end function randomNumber
@@ -74,28 +52,31 @@ var generatePassword = function() {
     sym: getCharType("symbols")
   }
   
-  console.log(pwRulesObj);
+  // keep track of selection of character types
   var charOptions = 0;
+  // store potential character types for random selection
   var charArray = [];
   
   if (pwRulesObj.upper) {
+    // build UPPER case array
     charArray = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    console.log(charArray);
+    // at least one selection made
     charOptions += 1;
   }
   if (pwRulesObj.lower) {
+    // build LOWER case array
     charArray.push('a','b','c','d','e','f','g','h','i','j','k','l','m','p','q','r','s','t','u','v','w','x','y','z');
-    console.log(charArray);
+    // at least one selection made
     charOptions += 1;
   }
   if (pwRulesObj.num) {
+    // build number array
     charArray.push('0','1','2','3','4','5','6','7','8','9');
-    console.log("charArray in numbers" + charArray);
+    // at least one selection made
     charOptions += 1;
   }
   if (pwRulesObj.sym) {
     charArray.push('!','@','#','$','%','&','*','+');
-    console.log("charArray in symbols" + charArray);
     charOptions += 1;
   }
   if (charOptions === 0) {
@@ -103,18 +84,15 @@ var generatePassword = function() {
     var charArray = ['a','b','c','d','e','f','g','h','i','j','k','l','m','p','q','r','s','t','u','v','w','x','y','z'];
   }
   
-  var pwArray = []
-
+  // hold the randomized characters
+  var pwArray = [];
+  
+  // build a randomized array
   for (var i = 0; i < pwRulesObj.length; i++) {
-    console.log("in for loop builing array");
-    console.log("charArray length " + charArray.length + "pwRulesObj.lentgh " + pwRulesObj.length);
     pwArray[i] = charArray[(randomNumber(0,charArray.length-1))];
-    console.log(pwArray[i]);
-  } // for
+  } 
 
-  console.log("out of for loop");
-  console.log(pwArray);
-
+  // send back a concatenated array
   return pwArray.join("");
 
 }; // end function generatePassword
